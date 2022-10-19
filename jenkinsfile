@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    environment {
+        PROJECT_NAME = "Project_1"
+        OWNER_NAME = "BazCorp"
+    }
+
+    stages {
+        stage('1-Build') {
+            steps {
+                echo "Start of stage build "
+                echo "Building..."
+                echo "End of stage Build"
+            }
+        }
+        stage('2-Test') {
+            steps {
+                echo "Start of stage Test"
+                echo "Testing..."
+                sh "ls -al"
+                sh "uname -a"
+                echo "End of stage Test"
+                echo "Hello ${OWNER_NAME}"
+            }
+        }
+        stage('3 - Deploy') {
+            steps {
+                echo "Start of stage Deploy"
+                echo "Deploying..."
+                sh '''
+                    ping -c 2 ubuntu01
+                    pwd
+                    ls -al
+                '''
+                echo "End of stage Deploy"
+                echo "This is ${PROJECT_NAME}"
+            }
+        }
+    }    
+}
